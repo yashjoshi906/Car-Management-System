@@ -1,0 +1,36 @@
+#logging.pattern.console: "%clr(%d{HH:mm:ss.SSS}){blue} %clr(---){faint} %clr([%15.15t]){yellow} %clr(:){red} %clr(%m){faint}%n"
+#spring.output.ansi.enabled: ALWAYS
+
+#target.uri: http://localhost:8082
+
+#management.endpoint.health.show-details: always # optionally - just for information
+
+spring:
+  profiles:
+    active: ${ACTIVE_PROFILE:dev}
+  datasource:
+    url: jdbc:postgresql://${POSTRGRESQL_HOST}:${POSTRGRESQL_PORT}/${POSTRGRESQL_DATABASE}
+    username: ${POSTRGRESQL_USERNAME}
+    password: ${POSTRGRESQL_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: false
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  sql:
+    init:
+      mode: never
+      continue-om-error: false
+      schema-locations: classpath:/data/schema.sql
+      data-locations: classpath:/data/data.sql
+ 
+
+server:
+  port: 8089  # Replace 8082 with your desired port number
